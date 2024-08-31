@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-// import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
+import image1 from '../../assets/pic1.png';
+import image2 from '../../assets/pic2.png';
+import image3 from '../../assets/pic3.png';
+import image4 from '../../assets/pic4.png';
 
-const images = [
-  '../assets/pic1.png',
-  '/mnt/d/Biriyani/src/assets/pic2.png',
-  '/mnt/d/Biriyani/src/assets/pic3.png',
-  '/mnt/d/Biriyani/src/assets/pic4.png',
-];
+const images = [image1, image2, image3, image4 ];
 
 function Cover() {
   const [currentIndex, setCurrentIndex] = useState(0);
-//   const theme = useTheme();
+  const theme = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000); // Change image every 6 seconds
+    }, 6000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -25,20 +24,21 @@ function Cover() {
     <Box
       style={{
         width: '100%',
-        height: '60vh',
+        height: '80vh',
         overflow: 'hidden',
         position: 'relative',
       }}
     >
       {images.map((image, index) => (
-        <Box
+        <img
           key={index}
+          src={image}
+          alt={`Slide ${index + 1}`}
           style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
             width: '100%',
-            height: '100%',
+            height: '80vh',
+            objectFit: 'cover',
+            objectPosition: 'top',
             position: index === currentIndex ? 'relative' : 'absolute',
             top: 0,
             left: 0,
