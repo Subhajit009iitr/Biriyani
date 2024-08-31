@@ -16,14 +16,14 @@ export const theme = createTheme({
     primary: {
       main: "#0DBDF2",
       light: "#39C9F9",
-      nav: alpha("#071116", 0.6),
     },
     background: {
       main: "#071116",
       default: "#0A1B25",
       light: "#2333B",
       lightest: "#3B4951",
-      highlight: "6C767C"
+      highlight: "6C767C",
+      button: alpha("#071116", 0.6)
     }
   },
   typography: {
