@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import image1 from '../../assets/pic1.png';
 import image2 from '../../assets/pic2.png';
 import image3 from '../../assets/pic3.png';
@@ -10,7 +9,6 @@ const images = [image1, image2, image3, image4 ];
 
 function Cover() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const theme = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,7 +22,7 @@ function Cover() {
     <Box
       style={{
         width: '100%',
-        height: '80vh',
+        height: '75vh',
         overflow: 'hidden',
         position: 'relative',
       }}
@@ -36,7 +34,7 @@ function Cover() {
           alt={`Slide ${index + 1}`}
           style={{
             width: '100%',
-            height: '80vh',
+            height: '75vh',
             objectFit: 'cover',
             objectPosition: 'top',
             position: index === currentIndex ? 'relative' : 'absolute',
