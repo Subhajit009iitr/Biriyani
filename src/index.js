@@ -36,7 +36,7 @@ export const theme = createTheme({
     },
     text: {
       primary: "#39C9F9",
-      secondary: "#AAB8C2",  // A slightly muted color for secondary text
+      secondary: "#AAB8C2",
       disabled: "#6C767C",
       hint: "#AAB8C2",
     },
@@ -47,9 +47,10 @@ export const theme = createTheme({
       disabled: "#6C767C",
       disabledBackground: "#1C2833",
     },
-    divider: "#1C2833",  // Divider color
+    divider: "#1C2833",
   },
   typography: {
+    fontFamily: "'Nunito Sans', sans-serif",
     htmlFontSize: 10,
     allVariants: { 
       color: "#FFFFFF",
@@ -68,7 +69,7 @@ export const theme = createTheme({
     },
     h4: {
       fontSize: "2.4rem",
-      fontWeight: 500,
+      fontWeight: 700,
     },
     h5: {
       fontSize: "2.2rem",
