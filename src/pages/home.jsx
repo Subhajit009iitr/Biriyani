@@ -1,58 +1,30 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import HorizontalScrollable from '../components/scrollers/scroller';
-import Cover from "../components/covers/cover"
+import Cover from "../components/covers/cover";
+import ScrollerHeader from '../components/header/scrollerHeader';
 
 function Home() {
   const theme = useTheme();
 
   return (
     <div>
-      {/* <div style={{ 
-        backgroundColor: theme.palette.background.main, 
-        padding: theme.spacing(2) 
-      }}>
-        <Typography variant="h1" style={{ color: theme.palette.primary.main }}>
-          Hello, World!
-        </Typography>
-        </div> */}
         <Cover/>
         <div style={{backgroundColor: theme.palette.background.main}}>
           <div>
-          <Typography variant="h3" style={{ color: theme.palette.primary.white,
-              textAlign: 'left',
-              paddingLeft: '4vw'
-           }}>
-            Continue Watching
-          </Typography>
+            <ScrollerHeader title="Continue Watching" onSeeMore={{}}/>
             <HorizontalScrollable/>
           </div>
           <div>
-          <Typography variant="h3" style={{ color: theme.palette.primary.white,
-              textAlign: 'left',
-              paddingLeft: '4vw'
-           }}>
-            Trending
-          </Typography>
+            <ScrollerHeader title="Trending" onSeeMore={{}}/>
             <HorizontalScrollable/>
           </div>
           <div>
-          <Typography variant="h3" style={{ color: theme.palette.primary.white,
-              textAlign: 'left',
-              paddingLeft: '4vw'
-           }}>
-            Recommended
-          </Typography>
+            <ScrollerHeader title="Recommended" onSeeMore={{}}/>
             <HorizontalScrollable/>
           </div>
           <div>
-          <Typography variant="h3" style={{ color: theme.palette.primary.white,
-              textAlign: 'left',
-              paddingLeft: '4vw'
-           }}>
-            Action
-          </Typography>
+            <ScrollerHeader title="Action" onSeeMore={{}}/>
             <HorizontalScrollable/>
           </div>
         </div>
