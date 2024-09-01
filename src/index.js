@@ -16,58 +16,103 @@ export const theme = createTheme({
     primary: {
       main: "#0DBDF2",
       light: "#39C9F9",
-      white: "#FFFFFF"
+      dark: "#073B53",
+      contrastText: "#FFFFFF",
+    },
+    secondary: {
+      main: "#FF4081",
+      light: "#FF79B0",
+      dark: "#C60055",
+      contrastText: "#FFFFFF",
     },
     background: {
       main: "#071116",
       default: "#0A1B25",
+      paper: "#1C2833",
       light: "#2333B",
       lightest: "#3B4951",
-      highlight: "6C767C",
-      button: alpha("#071116", 0.6)
-    }
+      highlight: "#6C767C",
+      button: alpha("#071116", 0.6),
+    },
+    text: {
+      primary: "#39C9F9",
+      secondary: "#AAB8C2",
+      disabled: "#6C767C",
+      hint: "#AAB8C2",
+    },
+    action: {
+      active: "#39C9F9",
+      hover: alpha("#39C9F9", 0.08),
+      selected: alpha("#39C9F9", 0.16),
+      disabled: "#6C767C",
+      disabledBackground: "#1C2833",
+    },
+    divider: "#1C2833",
   },
   typography: {
+    fontFamily: "'Nunito Sans', sans-serif",
     htmlFontSize: 10,
     allVariants: { 
-      color: "#39C9F9",
+      color: "#FFFFFF",
+    },
+    h1: {
+      fontSize: "4rem",
+      fontWeight: 700,
     },
     h2: {
-      fontSize: "3.2rem"
+      fontSize: "3.2rem",
+      fontWeight: 600,
     },
     h3: {
-      fontSize: "2.6rem"
+      fontSize: "2.6rem",
+      fontWeight: 500,
     },
     h4: {
-      fontSize: "2.4rem"
+      fontSize: "2.4rem",
+      fontWeight: 700,
     },
     h5: {
-      fontSize: "2.2rem"
+      fontSize: "2.2rem",
+      fontWeight: 500,
     },
     h6: {
-      fontSize: "2rem"
+      fontSize: "2rem",
+      fontWeight: 400,
     },
     body1: {
-      fontSize: "1.8rem"
+      fontSize: "1.8rem",
     },
     body2: {
-      fontSize: "1.6rem"
+      fontSize: "1.6rem",
     },
-    small1: {
-      fontSize: "1.4rem"
-    },
-    small2: {
-      fontSize: "1.2rem"
+    caption: {
+      fontSize: "1.4rem",
+      color: "#AAB8C2",
     },
     button: {
-      fontSize: "2.4rem",
+      fontSize: "1.2rem",
       fontWeight: 500,
       textTransform: "none",
-      on: "#FFFFFF",
-      off: alpha("#FFFFFF",0.8)
-    }
-  }
-})
+      color: "#FFFFFF",
+      "&:hover": {
+        color: alpha("#FFFFFF", 0.8),
+      },
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,  
+        },
+      },
+    },
+  },
+});
+
 
 root.render(
   <React.StrictMode>
