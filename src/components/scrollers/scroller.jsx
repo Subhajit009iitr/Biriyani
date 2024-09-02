@@ -1,32 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ScrollLeftButton, ScrollRightButton } from '../buttons/scroll';
+import ScrollableCard from '../cards/card';
 
-// Example Card component acting as a button
-function ScrollableCard({ title, onClick }) {
-  const theme = useTheme();
-
-  return (
-    <Card
-      style={{
-        minWidth: 200, 
-        margin: theme.spacing(1),
-        cursor: 'pointer',
-        textAlign: 'center',
-      }}
-      onClick={onClick}
-    >
-      <CardContent>
-        <Typography variant="h5" style={{ color: theme.palette.primary.main }}>
-          {title}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Horizontal Scrollable Container with Buttons
 function HorizontalScrollable() {
   const theme = useTheme();
   const scrollContainerRef = useRef(null);
@@ -37,7 +14,7 @@ function HorizontalScrollable() {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth -1 );
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
     }
   };
 
@@ -54,14 +31,15 @@ function HorizontalScrollable() {
   };
 
   useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
     updateScrollButtons();
-    scrollContainerRef.current.addEventListener('scroll', updateScrollButtons);
+    scrollContainer.addEventListener('scroll', updateScrollButtons);
     return () => {
-      scrollContainerRef.current.removeEventListener('scroll', updateScrollButtons);
+      scrollContainer.removeEventListener('scroll', updateScrollButtons);
     };
   }, []);
 
-  const cards = ['Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5','Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5'];
+  const cards = ['Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5', 'Card 6', 'Card 7', 'Card 8', 'Card 9', 'Card 10'];
 
   return (
     <Box position="relative" display="flex" alignItems="center">
@@ -76,15 +54,15 @@ function HorizontalScrollable() {
           scrollBehavior: 'smooth',
           width: '100%',
           padding: theme.spacing(1),
-          marginLeft: '60px', 
-          marginRight: '60px'
+          marginLeft: '60px',
+          marginRight: '60px',
         }}
       >
         {cards.map((title, index) => (
           <ScrollableCard
             key={index}
             title={title}
-            onClick={() => alert(`${title} clicked`)} 
+            onClick={() => alert(`${title} clicked`)}
           />
         ))}
       </Box>
