@@ -22,7 +22,7 @@ function Cover() {
     <Box
       style={{
         width: '100%',
-        height: '90vh',
+        height: '72vh',
         overflow: 'hidden',
         position: 'relative',
       }}
@@ -34,7 +34,7 @@ function Cover() {
           alt={`Slide ${index + 1}`}
           style={{
             width: '100%',
-            height: '90vh',
+            height: '75vh',
             objectFit: 'cover',
             objectPosition: 'top',
             position: index === currentIndex ? 'relative' : 'absolute',
