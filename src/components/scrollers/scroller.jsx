@@ -3,7 +3,9 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ScrollLeftButton, ScrollRightButton } from '../buttons/scroll';
 import ScrollableCard from '../cards/card';
+import image5 from '../../assets/pic5.png';
 
+// Horizontal Scrollable Container with Buttons
 function HorizontalScrollable() {
   const theme = useTheme();
   const scrollContainerRef = useRef(null);
@@ -39,8 +41,81 @@ function HorizontalScrollable() {
     };
   }, []);
 
-  const cards = ['Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5', 'Card 6', 'Card 7', 'Card 8', 'Card 9', 'Card 10'];
-
+  const cards = [
+    {
+      title: 'Card 1',
+      imageURL: image5,
+      date: '2024-09-02',
+      time: '10:00 AM',
+      rating: 4.5
+    },
+    {
+      title: 'Card 2',
+      imageURL: image5,
+      date: '2024-09-03',
+      time: '11:00 AM',
+      rating: 4.0
+    },
+    {
+      title: 'Card 3',
+      imageURL: image5,
+      date: '2024-09-04',
+      time: '12:00 PM',
+      rating: 4.2
+    },
+    {
+      title: 'Card 4',
+      imageURL: image5,
+      date: '2024-09-05',
+      time: '01:00 PM',
+      rating: 4.7
+    },
+    {
+      title: 'Card 5',
+      imageURL: image5,
+      date: '2024-09-06',
+      time: '02:00 PM',
+      rating: 4.9
+    },
+    {
+      title: 'Card 1',
+      imageURL: image5,
+      date: '2024-09-02',
+      time: '10:00 AM',
+      rating: 4.5
+    },
+    {
+      title: 'Card 2',
+      imageURL: image5,
+      date: '2024-09-03',
+      time: '11:00 AM',
+      rating: 4.0
+    },
+    {
+      title: 'Card 3',
+      imageURL: image5,
+      date: '2024-09-04',
+      time: '12:00 PM',
+      rating: 4.2
+    },
+    {
+      title: 'Card 4',
+      imageURL: image5,
+      date: '2024-09-05',
+      time: '01:00 PM',
+      rating: 4.7
+    },
+    {
+      title: 'Card 5',
+      imageURL: image5,
+      date: '2024-09-06',
+      time: '02:00 PM',
+      rating: 4.9
+    }
+    
+    
+    // Add more cards as needed
+  ];
   return (
     <Box position="relative" display="flex" alignItems="center">
       {canScrollLeft && <ScrollLeftButton onClick={scrollLeft} />}
@@ -58,12 +133,18 @@ function HorizontalScrollable() {
           marginRight: '60px',
         }}
       >
-        {cards.map((title, index) => (
+        {cards.map((card, index) => (
+  
           <ScrollableCard
             key={index}
-            title={title}
-            onClick={() => alert(`${title} clicked`)}
-          />
+            title={card.title}
+            imageURL={card.imageURL}
+            date={card.date}
+            time = {card.time}
+            rating = {card.rating}
+            onClick={() => alert(`${card.title} clicked`)} 
+            />
+          
         ))}
       </Box>
 
