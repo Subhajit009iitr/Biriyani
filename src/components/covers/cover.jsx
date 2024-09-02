@@ -49,7 +49,7 @@ function Cover() {
       <Box
         style={{
           position: 'absolute',
-          bottom: '10rem',
+          bottom: '4rem',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
