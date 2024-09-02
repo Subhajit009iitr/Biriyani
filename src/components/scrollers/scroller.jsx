@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ScrollLeftButton, ScrollRightButton } from '../buttons/scroll';
-
 import ScrollableCard from '../cards/card';
 
 // Example Card component acting as a button
@@ -39,7 +38,7 @@ function HorizontalScrollable() {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth -1 );
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
     }
   };
 
@@ -56,10 +55,11 @@ function HorizontalScrollable() {
   };
 
   useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
     updateScrollButtons();
-    scrollContainerRef.current.addEventListener('scroll', updateScrollButtons);
+    scrollContainer.addEventListener('scroll', updateScrollButtons);
     return () => {
-      scrollContainerRef.current.removeEventListener('scroll', updateScrollButtons);
+      scrollContainer.removeEventListener('scroll', updateScrollButtons);
     };
   }, []);
 
@@ -151,8 +151,8 @@ function HorizontalScrollable() {
           scrollBehavior: 'smooth',
           width: '100%',
           padding: theme.spacing(1),
-          marginLeft: '60px', 
-          marginRight: '60px'
+          marginLeft: '60px',
+          marginRight: '60px',
         }}
       >
         {cards.map((card, index) => (
