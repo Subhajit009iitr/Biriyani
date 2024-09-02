@@ -13,7 +13,7 @@ const addItem = (item) => ({
   payload: item,
 });
 
-const AnimeCard = ({title, imageURL,  date, time, rating, onClick  }) => {
+const ScrollableCard = ({title, imageURL,  date, time, rating, onClick  }) => {
     const theme = useTheme();
     onClick={onClick}
     const dispatch = useDispatch();
@@ -110,4 +110,4 @@ const AnimeCard = ({title, imageURL,  date, time, rating, onClick  }) => {
   );
 };
 
-export default AnimeCard;
+export default ScrollableCard;
