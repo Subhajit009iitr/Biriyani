@@ -44,8 +44,8 @@ function HomeBody() {
         <div 
           style={{ 
             padding: theme.spacing(2),
-            minHeight: '60vh', 
-            maxHeight: '80vh', 
+            minHeight: '80vh', 
+            maxHeight: '100vh', 
             overflowY: 'scroll',
             paddingRight: theme.spacing(1), 
           }}
