@@ -4,7 +4,7 @@ import HorizontalScrollable from '../scrollers/scroller';
 import ScrollerHeader from '../header/scrollerHeader';
 import RenderCards from '../cards/renderCard';
 
-function HomeBody() {
+function HomeBody({ onCardClick }) { 
   const theme = useTheme();
   const [expandedScroller, setExpandedScroller] = useState(null);
 
@@ -16,7 +16,18 @@ function HomeBody() {
     setExpandedScroller(null);
   };
 
-  const cardList = ['Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5', 'Card 6', 'Card 7', 'Card 8', 'Card 9', 'Card 10']; // Remove Later
+  const cardList = [
+    { title: 'Card 1', image: 0 },
+    { title: 'Card 2', image: 1 },
+    { title: 'Card 3', image: 2 },
+    { title: 'Card 4', image: 3 },
+    { title: 'Card 5', image: 0 },
+    { title: 'Card 6', image: 1 },
+    { title: 'Card 7', image: 2 },
+    { title: 'Card 8', image: 3 },
+    { title: 'Card 9', image: 0 },
+    { title: 'Card 10', image: 1 },
+  ]; // Updated cardList with image indices
 
   return (
     <div style={{ backgroundColor: theme.palette.background.main }}>
@@ -63,7 +74,7 @@ function HomeBody() {
           >
             Back
           </button>
-          <RenderCards cardList={cardList} />
+          <RenderCards cardList={cardList} onCardClick={onCardClick} />
         </div>
       )}
     </div>
