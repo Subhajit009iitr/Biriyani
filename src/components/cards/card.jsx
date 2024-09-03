@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, IconButton } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ShareIcon from '@mui/icons-material/Share';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ShareIcon from '@mui/icons-material/Share';
+import { setCoverDetails } from '../../slices/coverSlice';
 
 const addItem = (item) => ({
   type: 'ADD_ITEM',
@@ -14,18 +15,24 @@ const addItem = (item) => ({
 const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const item = useSelector((state) => state.selectedItem);
 
-  const handleAddItem = () => {
-    dispatch(addItem(item));
+  const handleAddItem = (e) => {
+    e.stopPropagation();
+    dispatch(addItem(title));  // Pass the title or any other data you need to add
   };
 
-  const handleShare = () => {
+  const handleShare = (e) => {
+    e.stopPropagation();
     // Handle share functionality here
   };
 
-  const handlePlayClick = () => {
+  const handlePlayClick = (e) => {
+    e.stopPropagation();
     alert(`Playing ${title}`);
+  };
+
+  const handleCardClick = () => {
+    dispatch(setCoverDetails({ page: title, imageURL })); // Dispatch action to update the cover
   };
 
   const [hovered, setHovered] = useState(false);
@@ -46,7 +53,7 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
         },
         cursor: 'pointer',
       }}
-      onClick={onClick}
+      onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -69,10 +76,7 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
           {title}
         </Typography>
         <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            handlePlayClick();
-          }}
+          onClick={handlePlayClick}
           style={{
             width: '95%',
             backgroundColor: '#D1D1D1',
@@ -106,8 +110,9 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
         padding: '0.1rem',
         transition: 'transform 0.3s ease-in-out',
         transform: hovered ? 'translateY(0)' : 'translateY(100%)',
+        textAlign: 'left'
       }}>
-        <Typography sx={{ fontSize: '0.8rem', padding: '0.1rem 1rem' }} color="text.secondary">
+        <Typography sx={{ fontSize: '0.8rem', padding: '0.1rem 1rem'}} color="text.secondary">
           {date} | {time} | {rating}
         </Typography>
       </CardContent>
