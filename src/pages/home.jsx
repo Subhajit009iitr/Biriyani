@@ -1,5 +1,4 @@
 
-import React, { useState } from 'react';
 import Cover from "../components/covers/cover";
 import Body from '../components/covers/body';
 import NavBar from '../components/navbars/nav';
