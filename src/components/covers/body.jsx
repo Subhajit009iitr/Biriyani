@@ -5,6 +5,7 @@ import HorizontalScrollable from '../scrollers/scroller';
 import ScrollerHeader from '../header/scrollerHeader';
 import RenderCards from '../cards/renderCard';
 import { setPageContent } from '../../slices/bodySlice';
+import Box from '@mui/material/Box';
 
 function Body() {
   const dispatch = useDispatch();
@@ -15,36 +16,41 @@ function Body() {
     dispatch(setPageContent(section));
   };
 
-  const handleCollapse = () => {
+  const handleBack = () => {
     dispatch(setPageContent('home'));
   };
 
   return (
-    <div style={{ backgroundColor: theme.palette.background.main }}>
+    <div style={{ backgroundColor: theme.palette.background.main, padding: theme.spacing(2) }}>
       {page === 'home' && content.map((section, index) => (
         <div key={index}>
-          <ScrollerHeader title={section.title} onSeeMore={() => handleSeeMore(section.name)} />
+          <ScrollerHeader 
+            title={section.title} 
+            onSeeMore={() => handleSeeMore(section.name)} 
+            showSeeMore={true} 
+          />
           <HorizontalScrollable items={section.items} />
         </div>
       ))}
+
       {page !== 'home' && (
-        <div>
-          <button 
-            onClick={handleCollapse} 
-            style={{ 
-              marginBottom: '16px',
-              backgroundColor: '#39C9F9',
-              color: '#fff',
-              border: 'none',
-              padding: '8px 16px',
-              cursor: 'pointer',
-              borderRadius: '4px'
-            }}
-          >
-            Back
-          </button>
-          <RenderCards cardList={content.find(section => section.name === page)?.items || []} />
-        </div>
+        <Box>
+          {content.find(section => section.name === page) && (
+            <>
+              <ScrollerHeader 
+                title={content.find(section => section.name === page).title} 
+                onSeeMore={handleBack} 
+                showSeeMore={false}
+              />
+              <RenderCards 
+                cardList={content.find(section => section.name === page)?.items || []} 
+                onCardClick={(card) => {
+                  // Handle card click if needed
+                }}
+              />
+            </>
+          )}
+        </Box>
       )}
     </div>
   );
