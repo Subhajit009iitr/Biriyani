@@ -5,20 +5,16 @@ import { useTheme } from '@mui/material/styles';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ShareIcon from '@mui/icons-material/Share';
+import { setSelectedCard } from '../../slices/bodySlice';
 import { setCoverDetails } from '../../slices/coverSlice';
 
-const addItem = (item) => ({
-  type: 'ADD_ITEM',
-  payload: item,
-});
-
-const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
+const ScrollableCard = ({ id, title, imageURL, date, time, rating }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
   const handleAddItem = (e) => {
     e.stopPropagation();
-    dispatch(addItem(title));  // Pass the title or any other data you need to add
+    // Dispatch or handle add item functionality here, if necessary
   };
 
   const handleShare = (e) => {
@@ -32,7 +28,8 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
   };
 
   const handleCardClick = () => {
-    dispatch(setCoverDetails({ page: title, imageURL })); // Dispatch action to update the cover
+    dispatch(setSelectedCard({ id, title, imageURL }));
+    dispatch(setCoverDetails({ page: 'details', imageURL }));
   };
 
   const [hovered, setHovered] = useState(false);
@@ -64,58 +61,46 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
         alt={title}
       />
 
-      <CardContent
-        className="card-expanded-info"
-        sx={{
-          padding: '0.5rem',
-          transition: 'transform 0.3s ease-in-out',
-          transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-        }}
-      >
-        <Typography gutterBottom sx={{ fontSize: '0.9rem' }} component="div">
-          {title}
-        </Typography>
-        <Button
-          onClick={handlePlayClick}
-          style={{
-            width: '95%',
-            backgroundColor: '#D1D1D1',
-            color: theme.palette.background.main,
-            fontWeight: 'bold',
-            fontSize: '1rem',
-          }}
-        >
-          <PlayArrowIcon sx={{ marginRight: '0.3rem', fontSize: '1.5rem' }} />
-          Play
-        </Button>
-      </CardContent>
+      {hovered && (
+        <>
+          <CardContent sx={{ padding: '0.5rem' }}>
+            <Typography gutterBottom sx={{ fontSize: '0.9rem' }} component="div">
+              {title}
+            </Typography>
+            <Button
+              onClick={handlePlayClick}
+              style={{
+                width: '95%',
+                backgroundColor: '#D1D1D1',
+                color: theme.palette.background.main,
+                fontWeight: 'bold',
+                fontSize: '1rem',
+              }}
+            >
+              <PlayArrowIcon sx={{ marginRight: '0.3rem', fontSize: '1.5rem' }} />
+              Play
+            </Button>
+          </CardContent>
 
-      <CardContent sx={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '0.1rem 0.1rem 0.1rem 0.9rem',
-        transition: 'transform 0.3s ease-in-out',
-        transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-      }}>
-        <div>
-          <IconButton onClick={handleAddItem}>
-            <AddCircleOutlineIcon sx={{ fontSize: '1.5rem' }} />
-          </IconButton>
-          <IconButton onClick={handleShare}>
-            <ShareIcon sx={{ fontSize: '1.5rem' }} />
-          </IconButton>
-        </div>
-      </CardContent>
+          <CardContent sx={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            padding: '0.1rem 0.1rem 0.1rem 0.9rem',
+          }}>
+            <IconButton onClick={handleAddItem}>
+              <AddCircleOutlineIcon sx={{ fontSize: '1.5rem' }} />
+            </IconButton>
+            <IconButton onClick={handleShare}>
+              <ShareIcon sx={{ fontSize: '1.5rem' }} />
+            </IconButton>
+          </CardContent>
 
-      <CardContent sx={{
-        padding: '0.1rem',
-        transition: 'transform 0.3s ease-in-out',
-        transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-        textAlign: 'left'
-      }}>
-        <Typography sx={{ fontSize: '0.8rem', padding: '0.1rem 1rem'}} color="text.secondary">
-          {date} | {time} | {rating}
-        </Typography>
-      </CardContent>
+          <CardContent sx={{ padding: '0.1rem', textAlign: 'left' }}>
+            <Typography sx={{ fontSize: '0.8rem', padding: '0.1rem 1rem' }} color="text.secondary">
+              {date} | {time} | {rating}
+            </Typography>
+          </CardContent>
+        </>
+      )}
     </Card>
   );
 };
