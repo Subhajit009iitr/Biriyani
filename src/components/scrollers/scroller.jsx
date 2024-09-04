@@ -35,12 +35,14 @@ function HorizontalScrollable({ items }) {
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
-    updateScrollButtons();
-    scrollContainer.addEventListener('scroll', updateScrollButtons);
-    return () => {
-      scrollContainer.removeEventListener('scroll', updateScrollButtons);
-    };
-  }, []);
+    if (scrollContainer) {
+      updateScrollButtons();
+      scrollContainer.addEventListener('scroll', updateScrollButtons);
+      return () => {
+        scrollContainer.removeEventListener('scroll', updateScrollButtons);
+      };
+    }
+  }, [items]);
 
   const handleCoverChange = (imageURL) => {
     dispatch(setCoverImage(imageURL));
@@ -54,7 +56,7 @@ function HorizontalScrollable({ items }) {
         ref={scrollContainerRef}
         display="flex"
         overflow="hidden"
-        style={{
+        sx={{
           whiteSpace: 'nowrap',
           scrollBehavior: 'smooth',
           width: '100%',
@@ -66,6 +68,7 @@ function HorizontalScrollable({ items }) {
         {items.map((card, index) => (
           <ScrollableCard
             key={index}
+            id={card.id}
             title={card.title}
             imageURL={card.imageURL}
             date={card.date}

@@ -4,11 +4,13 @@ import image2 from '../assets/pic2.png';
 import image3 from '../assets/pic3.png';
 import image4 from '../assets/pic4.png';
 
+const initialCoverImageURL = [image1, image2, image3, image4];
+
 export const coverSlice = createSlice({
   name: 'cover',
   initialState: {
     page: "home",
-    coverImageURL: [image1,image2,image3,image4],
+    coverImageURL: initialCoverImageURL,
   },
   reducers: {
     setCoverImage: (state, action) => {
@@ -18,9 +20,13 @@ export const coverSlice = createSlice({
       state.page = action.payload.page;
       state.coverImageURL = [action.payload.imageURL];
     },
+    resetCoverImage: (state) => {
+      state.coverImageURL = initialCoverImageURL;
+      state.page = 'home';
+    },
   },
 });
 
-export const { setCoverImage, setCoverDetails } = coverSlice.actions;
+export const { setCoverImage, setCoverDetails, resetCoverImage } = coverSlice.actions;
 
 export default coverSlice.reducer;

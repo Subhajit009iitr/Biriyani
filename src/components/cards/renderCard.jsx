@@ -2,7 +2,7 @@ import React from 'react';
 import ScrollableCard from './card';
 import { useTheme } from '@mui/material/styles';
 
-function RenderCards({ cardList, onCardClick }) {
+function RenderCards({ cardList = [], onCardClick }) {
   const theme = useTheme();
 
   return (
