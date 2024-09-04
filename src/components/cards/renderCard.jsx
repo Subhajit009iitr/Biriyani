@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollableCard from './card';
+import AnimeCard from './animeCard';
 import { useTheme } from '@mui/material/styles';
 
 function RenderCards({ cardList }) {
@@ -8,7 +8,7 @@ function RenderCards({ cardList }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: theme.spacing(2) }}>
       {cardList.map((title, index) => (
-        <ScrollableCard key={index} title={title} onClick={() => alert(`${title} clicked`)} />
+        <AnimeCard key={index} title={title} onClick={() => alert(`${title} clicked`)} />
       ))}
     </div>
   );

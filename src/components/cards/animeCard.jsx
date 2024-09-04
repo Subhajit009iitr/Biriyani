@@ -11,7 +11,7 @@ const addItem = (item) => ({
   payload: item,
 });
 
-const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
+const AnimeCard = ({ title, imageURL, date, time, rating, onClick }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const item = useSelector((state) => state.selectedItem);
@@ -115,4 +115,4 @@ const ScrollableCard = ({ title, imageURL, date, time, rating, onClick }) => {
   );
 };
 
-export default ScrollableCard;
+export default AnimeCard;

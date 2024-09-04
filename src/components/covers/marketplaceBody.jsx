@@ -4,7 +4,7 @@ import HorizontalScrollable from '../scrollers/scroller';
 import ScrollerHeader from '../header/scrollerHeader';
 import RenderCards from '../cards/renderCard';
 
-function HomeBody() {
+function MarketplaceBody() {
   const theme = useTheme();
   const [expandedScroller, setExpandedScroller] = useState(null);
 
@@ -23,20 +23,8 @@ function HomeBody() {
       {!expandedScroller && (
         <>
           <div>
-            <ScrollerHeader title="Continue Watching" onSeeMore={() => handleSeeMore('continueWatching')} />
-            <HorizontalScrollable cardtype={'anime'} />
-          </div>
-          <div>
-            <ScrollerHeader title="Trending" onSeeMore={() => handleSeeMore('trending')} />
-            <HorizontalScrollable cardtype={'anime'} />
-          </div>
-          <div>
-            <ScrollerHeader title="Recommended" onSeeMore={() => handleSeeMore('recommended')} />
-            <HorizontalScrollable cardtype={'anime'} />
-          </div>
-          <div>
-            <ScrollerHeader title="Action" onSeeMore={() => handleSeeMore('action')} />
-            <HorizontalScrollable cardtype={'anime'} />
+            <ScrollerHeader title="Upcoming Events" onSeeMore={() => handleSeeMore('upcomingevents')} />
+            <HorizontalScrollable cardtype='event' />
           </div>
         </>
       )}
@@ -70,4 +58,4 @@ function HomeBody() {
   );
 }
 
-export default HomeBody;
+export default MarketplaceBody;
