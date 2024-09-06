@@ -1,15 +1,14 @@
-import React from 'react';
+
 import Cover from "../components/covers/cover";
-import HomeBody from '../components/covers/homeBody';
+import Body from '../components/covers/body';
 import NavBar from '../components/navbars/nav';
 
 function Home() {
-
   return (
     <div>
-        <NavBar/>
-        <Cover/>
-        <HomeBody/>
+        <NavBar />
+        <Cover />
+        <Body/>
     </div>
   );
 }

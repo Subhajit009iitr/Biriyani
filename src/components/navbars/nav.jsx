@@ -47,6 +47,7 @@ function ResponsiveAppBar() {
         margin: 'auto',
         backgroundColor: 'rgba(0,0,0,0)',
         mt: '1rem',
+        boxShadow: 'none'
         
         }}>
       <Container maxWidth="xl" sx={{backgroundColor: 'rgba(0,0,0,0.5)',

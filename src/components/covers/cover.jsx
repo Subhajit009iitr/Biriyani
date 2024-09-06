@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import image1 from '../../assets/pic1.png';
-import image2 from '../../assets/pic2.png';
-import image3 from '../../assets/pic3.png';
-import image4 from '../../assets/pic4.png';
-
-const images = [image1, image2, image3, image4];
+import { useSelector } from 'react-redux';
 
 function Cover() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const coverImages = useSelector((state) => state.cover.coverImageURL);
+  console.log(useSelector((state) => state));
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % coverImages.length);
     }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
-
+  }, [coverImages.length]);
   return (
     <Box
       style={{
@@ -27,7 +22,7 @@ function Cover() {
         position: 'relative',
       }}
     >
-      {images.map((image, index) => (
+      {coverImages.map((image, index) => (
         <img
           key={index}
           src={image}
@@ -56,7 +51,7 @@ function Cover() {
           gap: '0.5rem',
         }}
       >
-        {images.map((_, index) => (
+        {coverImages.map((_, index) => (
           <Box
             key={index}
             style={{
