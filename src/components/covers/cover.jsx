@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function Cover() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const coverImages = useSelector((state) => state.cover.coverImageURL);
-  console.log(useSelector((state) => state));
+  // console.log(useSelector((state) => state));
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % coverImages.length);

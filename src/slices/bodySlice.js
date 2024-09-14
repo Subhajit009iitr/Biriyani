@@ -1,91 +1,68 @@
-import { createSlice } from '@reduxjs/toolkit';
-import image5 from '../assets/pic5.png';
-import image6 from '../assets/pic6.png';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { cardsUrl } from '../urls';
+import BackendClient from "../BackendClient";
 
-const cards = [
-    { id:0, title: 'Slime', imageURL: image5, date: '2024-09-02', time: '10:00 AM', rating: 4.5 },
-    { id:1, title: 'JJK', imageURL: image6, date: '2024-09-03', time: '11:00 AM', rating: 4.0 },
-    { id:2, title: 'Card 3', imageURL: image5, date: '2024-09-04', time: '12:00 PM', rating: 4.2 },
-    { id:3, title: 'Card 4', imageURL: image6, date: '2024-09-05', time: '01:00 PM', rating: 4.7 },
-    { id:4, title: 'Card 5', imageURL: image5, date: '2024-09-06', time: '02:00 PM', rating: 4.9 },
-    { id:5, title: 'Card 6', imageURL: image6, date: '2024-09-02', time: '10:00 AM', rating: 4.5 },
-    { id:6, title: 'Card 7', imageURL: image5, date: '2024-09-03', time: '11:00 AM', rating: 4.0 },
-    { id:7, title: 'Card 8', imageURL: image6, date: '2024-09-04', time: '12:00 PM', rating: 4.2 },
-    { id:8, title: 'Card 9', imageURL: image5, date: '2024-09-05', time: '01:00 PM', rating: 4.7 },
-    { id:9, title: 'Card 10', imageURL: image6, date: '2024-09-06', time: '02:00 PM', rating: 4.9 },
-];
+// Fetch cards from backend
+export const fetchCards = createAsyncThunk('body/fetchCards', async (_, { rejectWithValue }) => {
+  try {
+    const response = await BackendClient.get(`${cardsUrl()}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data || 'An error occurred');
+  }
+});
 
-const episodes = [
-    [
-      { title: 'Episode 1', description: 'This is the first episode Slime', imageURL: image5 },
-      { title: 'Episode 2', description: 'This is the second episode Slime', imageURL: image5 },
+export const bodySlice = createSlice({
+  name: 'body',
+  initialState: {
+    page: 'home',
+    content: [
+      { name: 'continueWatching', title: 'Continue Watching', items: [] },
+      { name: 'trending', title: 'Trending', items: [] },
+      { name: 'recommended', title: 'Recommended', items: [] },
+      { name: 'action', title: 'Action', items: [] },
     ],
-    [
-      { title: 'Episode 1', description: 'This is the first episode JJK', imageURL: image6 },
-      { title: 'Episode 2', description: 'This is the second episode JJK', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-      { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-      { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-      { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-      { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-        { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-        { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-        { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-    [
-        { title: 'Episode 1', description: 'This is the first episode', imageURL: image6 },
-        { title: 'Episode 2', description: 'This is the second episode', imageURL: image6 },
-    ],
-];
-
-  export const bodySlice = createSlice({
-    name: 'body',
-    initialState: {
-      page: 'home',
-      content: [
-        { name: 'continueWatching', title: 'Continue Watching', items: cards },
-        { name: 'trending', title: 'Trending', items: cards },
-        { name: 'recommended', title: 'Recommended', items: cards },
-        { name: 'action', title: 'Action', items: cards },
-      ],
-      selectedCard: null,
-      activeTab: 'Episodes',
-      episodes,  
+    selectedCard: null,
+    activeTab: 'Episodes',
+    episodes: [],
+    status: 'idle', // Initial status
+    error: null, // To track errors
+  },
+  reducers: {
+    setPageContent: (state, action) => {
+      state.page = action.payload;
     },
-    reducers: {
-      setPageContent: (state, action) => {
-        state.page = action.payload;
-      },
-      setSelectedCard: (state, action) => {
-        console.log('Setting selected card:', action.payload);
-        state.selectedCard = action.payload;
-        state.page = 'details';
-      },
-      setActiveTab: (state, action) => {
-        state.activeTab = action.payload;
-      },
+    setSelectedCard: (state, action) => {
+      console.log('Setting selected card:', action.payload);
+      state.selectedCard = action.payload;
+      state.page = 'details';
     },
-  });
-  
-  export const { setPageContent, setSelectedCard, setActiveTab } = bodySlice.actions;
-  export default bodySlice.reducer;
+    setActiveTab: (state, action) => {
+      state.activeTab = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCards.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchCards.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const data = action.payload;
+        console.log("pay",data);
+        state.content[0].items = data;
+        state.content[1].items = data;
+        state.content[2].items = data;
+        state.content[3].items = data;
+        console.log("lol",state.content[1]);
+      })
+      .addCase(fetchCards.rejected, (state, action) => {
+        console.log(action);
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export const { setPageContent, setSelectedCard, setActiveTab } = bodySlice.actions;
+export default bodySlice.reducer;
