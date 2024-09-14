@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ShareIcon from '@mui/icons-material/Share';
-import { setSelectedCard } from '../../slices/bodySlice';
+import { setSelectedCard, fetchCardDetails } from '../../slices/bodySlice';
 import { setCoverDetails } from '../../slices/coverSlice';
 
 const ScrollableCard = ({ id, title, imageURL, date, time, rating }) => {
@@ -30,6 +30,7 @@ const ScrollableCard = ({ id, title, imageURL, date, time, rating }) => {
   const handleCardClick = () => {
     dispatch(setSelectedCard({ id, title, imageURL }));
     dispatch(setCoverDetails({ page: 'details', imageURL }));
+    dispatch(fetchCardDetails(id));
   };
 
   const [hovered, setHovered] = useState(false);
