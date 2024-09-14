@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import HorizontalScrollable from '../scrollers/scroller';
 import ScrollerHeader from '../header/scrollerHeader';
 import RenderCards from '../cards/renderCard';
 import EpisodeCard from '../cards/episode';
-import { setPageContent, setSelectedCard, setActiveTab } from '../../slices/bodySlice';
-import { resetCoverImage } from '../../slices/coverSlice'; // Import the new action
+import { setPageContent, setSelectedCard, setActiveTab, fetchCards } from '../../slices/bodySlice';
+import { resetCoverImage } from '../../slices/coverSlice'; 
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
@@ -15,7 +15,14 @@ import Typography from '@mui/material/Typography';
 function Body() {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const { page, content, selectedCard, episodes, activeTab } = useSelector((state) => state.body);
+  const { page, content, selectedCard, episodes, activeTab, status, error } = useSelector((state) => state.body);
+  console.log(useSelector((state) => state.body));
+  useEffect(() => {
+    // Fetch cards when component loads
+    if (status === 'idle') {
+      dispatch(fetchCards());
+    }
+  }, [dispatch, status]);
 
   const handleSeeMore = (section) => {
     dispatch(setPageContent(section));
@@ -23,7 +30,7 @@ function Body() {
 
   const handleBack = () => {
     dispatch(setPageContent('home'));
-    dispatch(resetCoverImage()); // Reset cover image to initial state
+    dispatch(resetCoverImage());
   };
 
   const handleCardClick = (card) => {
@@ -36,18 +43,18 @@ function Body() {
   };
 
   // Debugging logs
-  console.log('Current Page:', page);
-  console.log('Selected Card:', selectedCard);
-  console.log('Episodes:', episodes);
-  
-  // Check if selectedCard and episodes[selectedCard.id] are correctly set
-  if (page === 'details') {
-    if (!selectedCard) {
-      console.log('Selected Card is not set.');
-    } else {
-      console.log('Selected Card ID:', selectedCard.id);
-      console.log('Episodes for Selected Card:', episodes[selectedCard.id]);
-    }
+  // console.log('Current Page:', page);
+  // console.log('Selected Card:', selectedCard);
+  // console.log('Episodes:', episodes);
+
+  // If fetching, show loading state
+  if (status === 'loading') {
+    return <div>Loading cards...</div>;
+  }
+
+  // If there's an error, display it
+  if (status === 'failed') {
+    return <div>Error fetching cards: {error}</div>;
   }
 
   return (

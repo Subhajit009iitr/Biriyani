@@ -68,7 +68,7 @@ function HorizontalScrollable({ items }) {
         {items.map((card, index) => (
           <ScrollableCard
             key={index}
-            id={card.id}
+            id={card._id}
             title={card.title}
             imageURL={card.imageURL}
             date={card.date}
