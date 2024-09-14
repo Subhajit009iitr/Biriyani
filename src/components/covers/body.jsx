@@ -5,7 +5,7 @@ import HorizontalScrollable from '../scrollers/scroller';
 import ScrollerHeader from '../header/scrollerHeader';
 import RenderCards from '../cards/renderCard';
 import EpisodeCard from '../cards/episode';
-import { setPageContent, setSelectedCard, setActiveTab, fetchCards } from '../../slices/bodySlice';
+import { setPageContent, setActiveTab, fetchCards, resetEpisodes } from '../../slices/bodySlice';
 import { resetCoverImage } from '../../slices/coverSlice'; 
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -16,7 +16,7 @@ function Body() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const { page, content, selectedCard, episodes, activeTab, status, error } = useSelector((state) => state.body);
-  console.log(useSelector((state) => state.body));
+  console.log("Body State:",useSelector((state) => state.body));
   useEffect(() => {
     // Fetch cards when component loads
     if (status === 'idle') {
@@ -31,13 +31,10 @@ function Body() {
   const handleBack = () => {
     dispatch(setPageContent('home'));
     dispatch(resetCoverImage());
+    dispatch(resetEpisodes());
   };
 
-  const handleCardClick = (card) => {
-    console.log('Card clicked:', card);
-    dispatch(setSelectedCard(card));
-  };
-
+  //Not implemented yet
   const handleTabChange = (tab) => {
     dispatch(setActiveTab(tab));
   };
@@ -67,7 +64,7 @@ function Body() {
               onSeeMore={() => handleSeeMore(section.name)} 
               showSeeMore={true} 
             />
-            <HorizontalScrollable items={section.items} onCardClick={handleCardClick} />
+            <HorizontalScrollable items={section.items} />
           </Box>
         ))
       ) : page === 'details' ? (
@@ -98,8 +95,9 @@ function Body() {
           <Divider />
           <Box sx={{ marginTop: theme.spacing(2) }}>
             {selectedCard ? (
-              episodes[selectedCard.id] ? (
-                episodes[selectedCard.id].map((episode, index) => (
+              //change here
+              episodes.length > 0? (
+                episodes.map((episode, index) => (
                   <EpisodeCard 
                     key={index} 
                     imageURL={episode.imageURL} 
@@ -130,7 +128,6 @@ function Body() {
               />
               <RenderCards 
                 cardList={content.find(section => section.name === page)?.items || []} 
-                onCardClick={handleCardClick}
               />
             </>
           )}
