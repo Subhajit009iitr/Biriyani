@@ -11,7 +11,7 @@ import {
       <DynamicContextProvider
         settings={{
           // Find your environment id at https://app.dynamic.xyz/dashboard/developer
-          environmentId: "e5e636ea-f8a8-4447-97dd-3830d5d1a600",
+          environmentId: "",
           walletConnectors: [EthereumWalletConnectors],
         }}
       >
