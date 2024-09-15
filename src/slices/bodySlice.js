@@ -34,6 +34,7 @@ export const bodySlice = createSlice({
     selectedCard: null,
     activeTab: 'Episodes',
     episodes: [],
+    marketItems: [],
     status: 'idle', // Initial status
     error: null, // To track errors
   },
@@ -51,6 +52,7 @@ export const bodySlice = createSlice({
     },
     resetEpisodes: (state) => {
       state.episodes=[];
+      state.marketItems=[];
     }
   },
   extraReducers: (builder) => {
@@ -71,14 +73,16 @@ export const bodySlice = createSlice({
         state.error = action.error.message;
       })
 
-      // Fetch card details (including episodes)
+      // Fetch card details
       .addCase(fetchCardDetails.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchCardDetails.fulfilled, (state, action) => {
         state.status = 'succeeded';
         const episodes = action.payload.episodes;
+        const marketItems = action.payload.marketItems;
         state.episodes = episodes;
+        state.marketItems = marketItems;
         console.log("moye moye",action.payload);
       })
       .addCase(fetchCardDetails.rejected, (state, action) => {
