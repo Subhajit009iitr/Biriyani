@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from '../../assets/logo.svg';
+import SignUpLogin from '../../dynamic/singuplogin';
 
 const pages = ['Manga', 'Anime', 'Community', 'Marketplace', 'Listing'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -41,7 +42,7 @@ function ResponsiveAppBar() {
         margin: 'auto',
         backgroundColor: 'rgba(0,0,0,0)',
         mt: '1rem',
-        
+        boxShadow: 'none'
         }}>
       <Container maxWidth="xl" sx={{backgroundColor: 'rgba(0,0,0,0.5)',
          borderRadius:'10px',
@@ -135,10 +136,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                <SignUpLogin/>
               </IconButton>
             </Tooltip>
-            <Menu
+            {/* <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -159,7 +161,7 @@ function ResponsiveAppBar() {
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
         </Toolbar>
       </Container>
