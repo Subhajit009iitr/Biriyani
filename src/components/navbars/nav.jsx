@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation from react-router-dom
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,6 +18,10 @@ const pages = ['Manga', 'Anime', 'Community', 'Marketplace', 'Listing'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const location = useLocation(); // Get the current URL path
+
+  // Check if we are on the community page
+  const isCommunityPage = location.pathname === '/community';
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -28,17 +33,19 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar 
+      position={!isCommunityPage ? 'fixed' : 'relative'} // Make the navbar fixed only on community page
       sx={{
         margin: 'auto',
         backgroundColor: 'rgba(0,0,0,0)',
         mt: '1rem',
         boxShadow: 'none'
-      }}>
+      }}
+    >
       <Container maxWidth="xl" sx={{
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          borderRadius: '10px',
-          backdropFilter: 'blur(10px)',
-        }}>
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        borderRadius: '10px',
+        backdropFilter: 'blur(10px)',
+      }}>
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <img src={Logo} alt="Logo" />
@@ -58,6 +65,7 @@ function ResponsiveAppBar() {
             MangaVerse
           </Typography>
 
+          {/* Mobile Menu Icon */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -90,10 +98,12 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
+          {/* Mobile Logo */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
             <img src={Logo} alt="Logo" />
           </Box>
 
+          {/* Mobile Title */}
           <Typography
             variant="h5"
             noWrap
@@ -110,6 +120,7 @@ function ResponsiveAppBar() {
             MangaVerse
           </Typography>
 
+          {/* Desktop Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -122,6 +133,7 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
+          {/* Signup/Login Button */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Login or Signup">
               <IconButton sx={{ p: 0 }}>
