@@ -52,7 +52,7 @@ function Sidebar() {
           onClick={handleCreateClick}
           sx={{ marginTop: '20px' }}
         >
-          Create
+          Post something!
         </Button>
       </List>
     </Box>
