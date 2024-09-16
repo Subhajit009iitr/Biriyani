@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import HorizontalScrollable from '../scrollers/scroller';
+import EventHorizontalScrollable from '../scrollers/eventScroller';
 import ScrollerHeader from '../header/scrollerHeader';
+import MarketCard from '../cards/marketCard'; // Import MarketCard component
+// import EventCard from '../cards/eventCard';   // Import EventCard component
 import RenderCards from '../cards/renderCard';
 import EpisodeCard from '../cards/episode';
-import MarketCard from '../cards/marketCard'; // Import MarketCard component
 import { setPageContent, setActiveTab, fetchCards, resetEpisodes } from '../../slices/bodySlice';
 import { resetCoverImage } from '../../slices/coverSlice'; 
 import Box from '@mui/material/Box';
@@ -16,8 +18,8 @@ import Typography from '@mui/material/Typography';
 function Body() {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const { page, content, selectedCard, episodes, marketItems, activeTab, status, error } = useSelector((state) => state.body);
-  console.log("Body State:",useSelector((state) => state.body));
+  const { page, content, selectedCard, episodes, marketItems, events, activeTab, status, error } = useSelector((state) => state.body);
+  console.log("Body State:",useSelector((state) => state.body)); 
 
   useEffect(() => {
     // Fetch cards when component loads
@@ -91,7 +93,39 @@ function Body() {
           <Divider />
           <Box sx={{ marginTop: theme.spacing(2) }}>
             {selectedCard ? (
-              activeTab === 'Episodes' ? (
+              activeTab === 'Marketplace' ? (
+                <>
+                  {/* Events Section */}
+                  <ScrollerHeader title="Events" />
+                  {events.length > 0 ? (
+                    <EventHorizontalScrollable items={events} />
+                  ) : (
+                    <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
+                      No events available.
+                    </Typography>
+                  )}
+                  
+                  {/* Products Section */}
+                  <ScrollerHeader title="Products" />
+                  {marketItems.length > 0 ? (
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: theme.spacing(2), marginTop: theme.spacing(2) }}>
+                      {marketItems.map((item, index) => (
+                        <MarketCard
+                          key={index}
+                          imageURL={item.imageURL}
+                          title={item.title}
+                          description={item.description}
+                          token={item.token}
+                        />
+                      ))}
+                    </Box>
+                  ) : (
+                    <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
+                      No marketplace items available.
+                    </Typography>
+                  )}
+                </>
+              ) : activeTab === 'Episodes' ? (
                 episodes.length > 0 ? (
                   episodes.map((episode, index) => (
                     <EpisodeCard 
@@ -102,36 +136,19 @@ function Body() {
                     />
                   ))
                 ) : (
-                  <Box sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
-                    <Typography variant="body1">No episodes available for this card.</Typography>
-                  </Box>
-                )
-              ) : activeTab === 'Marketplace' ? (
-                marketItems.length > 0 ? (
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                    {marketItems.map((item, index) => (
-                      <MarketCard 
-                        key={index} 
-                        imageURL={item.imageURL} 
-                        title={item.title} 
-                        description={item.description} 
-                      />
-                    ))}
-                  </Box>
-                ) : (
-                  <Box sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
-                    <Typography variant="body1">No marketplace items available for this card.</Typography>
-                  </Box>
+                  <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
+                    No episodes available for this card.
+                  </Typography>
                 )
               ) : (
-                <Box sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
-                  <Typography variant="body1">Community content coming soon.</Typography>
-                </Box>
+                <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
+                  Community content coming soon.
+                </Typography>
               )
             ) : (
-              <Box sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
-                <Typography variant="body1">Please select a card to view content.</Typography>
-              </Box>
+              <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
+                Please select a card to view content.
+              </Typography>
             )}
           </Box>
         </Box>
