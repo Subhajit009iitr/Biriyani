@@ -81,12 +81,6 @@ function Body() {
               >
                 Marketplace
               </Button>
-              <Button 
-                variant={activeTab === 'Community' ? 'contained' : 'outlined'}
-                onClick={() => handleTabChange('Community')}
-              >
-                Community
-              </Button>
             </Box>
             <Button onClick={handleBack} variant="contained">Back</Button>
           </Box>
@@ -142,7 +136,7 @@ function Body() {
                 )
               ) : (
                 <Typography variant="body1" sx={{ textAlign: 'center', padding: theme.spacing(2) }}>
-                  Community content coming soon.
+                  Content coming soon.
                 </Typography>
               )
             ) : (
