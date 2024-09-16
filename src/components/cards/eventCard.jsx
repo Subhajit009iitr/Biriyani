@@ -1,29 +1,25 @@
-
 import React, { useState } from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, IconButton } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ShareIcon from '@mui/icons-material/Share';
+import { Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import TokenIcon from '../../assets/tokenicon.svg';
 import CardCoin from '../../assets/cardcoin.svg';
 import PlaceIcon from '@mui/icons-material/Place';
 
-const addItem = (item) => ({
-  type: 'ADD_ITEM',
-  payload: item,
-});
-
-const EventCard = ({ title, imageURL, date, time, location, tokenamount, onClick }) => {
+const EventCard = ({ title, imageURL, date, time, location, tokenAmount, onClick }) => {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  const item = useSelector((state) => state.selectedItem);
+  const [hovered, setHovered] = useState(false);
 
-  const handlePlayClick = () => {
-    alert(`Playing ${title}`);
+  // Handle the click on the card itself
+  const handleCardClick = (e) => {
+    e.stopPropagation();
+    alert(`Card clicked: ${title}`);
   };
 
-  const [hovered, setHovered] = useState(false);
+  // Handle the click on the "Book a Seat" button
+  const handleBookClick = (e) => {
+    e.stopPropagation();
+    alert(`Book a ticket for: ${title}`);
+  };
 
   return (
     <Card
@@ -41,7 +37,7 @@ const EventCard = ({ title, imageURL, date, time, location, tokenamount, onClick
         },
         cursor: 'pointer',
       }}
-      onClick={onClick}
+      onClick={handleCardClick}  // Card click triggers an alert
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -62,9 +58,9 @@ const EventCard = ({ title, imageURL, date, time, location, tokenamount, onClick
       >
         <Typography gutterBottom sx={{ fontSize: '1rem', display: 'flex', justifyContent: 'space-between', alignItems:'center', ml: '1rem'}} component="div">
           {title}
-          <Button sx={{backgroundColor: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', color: '#fff'}}>
-            <img src={TokenIcon} alt="TokenIcon" style={{marginRight: '0.2rem', width : '1rem'}} />
-            {tokenamount}
+          <Button sx={{ backgroundColor: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', color: '#fff' }}>
+            <img src={TokenIcon} alt="Token" style={{ marginRight: '0.2rem', width: '1rem' }} />
+            {tokenAmount}
           </Button>
         </Typography>
         <Typography sx={{ fontSize: '0.7rem', padding: '0rem 1rem',  display: 'flex' }} color="text.secondary">
@@ -86,10 +82,7 @@ const EventCard = ({ title, imageURL, date, time, location, tokenamount, onClick
       }}>
 
         <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            handlePlayClick();
-          }}
+          onClick={handleBookClick}  // "Book a Seat" click triggers a different alert
           style={{
             width: '95%',
             backgroundColor: '#D1D1D1',

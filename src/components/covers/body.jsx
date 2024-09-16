@@ -96,7 +96,7 @@ function Body() {
               activeTab === 'Marketplace' ? (
                 <>
                   {/* Events Section */}
-                  <ScrollerHeader title="Events" />
+                  <ScrollerHeader title="Events" showSeeMore={true}/>
                   {events.length > 0 ? (
                     <EventHorizontalScrollable items={events} />
                   ) : (
@@ -106,7 +106,7 @@ function Body() {
                   )}
                   
                   {/* Products Section */}
-                  <ScrollerHeader title="Products" />
+                  <ScrollerHeader title="Products" showSeeMore={true}/>
                   {marketItems.length > 0 ? (
                     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: theme.spacing(2), marginTop: theme.spacing(2) }}>
                       {marketItems.map((item, index) => (
