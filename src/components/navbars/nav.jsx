@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation from react-router-dom
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,11 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Logo from '../../assets/logo.svg';
 import SignUpLogin from '../../dynamic/singuplogin';
 
-const pages = ['Manga', 'Anime', 'Community', 'Marketplace', 'Listing'];
+const pages = [
+  { label: 'Manga', path: '/' },
+  { label: 'Anime', path: '/' },
+  { label: 'Community', path: '/community' },
+  { label: 'Marketplace', path: '/marketplace' },
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const location = useLocation(); // Get the current URL path
+  const navigate = useNavigate(); // Hook to programmatically navigate between pages
 
   // Check if we are on the community page
   const isCommunityPage = location.pathname === '/community';
@@ -31,9 +37,15 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
+  // Function to handle navigation when a page is clicked
+  const handleNavigate = (path) => {
+    navigate(path);
+    handleCloseNavMenu();
+  };
+
   return (
     <AppBar 
-      position={!isCommunityPage ? 'fixed' : 'relative'} // Make the navbar fixed only on community page
+      position={!isCommunityPage ? 'fixed' : 'relative'} // Make the navbar fixed except on community page
       sx={{
         margin: 'auto',
         backgroundColor: 'rgba(0,0,0,0)',
@@ -47,6 +59,7 @@ function ResponsiveAppBar() {
         backdropFilter: 'blur(10px)',
       }}>
         <Toolbar disableGutters>
+          {/* Logo Section */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <img src={Logo} alt="Logo" />
           </Box>
@@ -91,8 +104,11 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem
+                  key={page.label}
+                  onClick={() => handleNavigate(page.path)}
+                >
+                  <Typography sx={{ textAlign: 'center' }}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -124,11 +140,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.label}
+                onClick={() => handleNavigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
