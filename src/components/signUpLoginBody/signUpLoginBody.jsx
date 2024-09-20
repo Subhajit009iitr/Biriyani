@@ -4,6 +4,7 @@ import Logo from '../../assets/logo.svg';
 import SignUpLogin from '../../dynamic/singuplogin';
 import dynamiclogo from "../../assets/dynamiclogo.jpg"
 import worldcoinlogo from "../../assets/worldcoinlogo.jpg"
+import UserVerify from '../../worldcoin/userverify';
 
 function App() {
     return (
@@ -81,18 +82,20 @@ function App() {
 
                     }}
                 >
-                  <span style={{marginRight: '10px'}}>
-                     Verify with </span>
-                      <img src={worldcoinlogo} alt="worldcoinlogo"
+                  {/* <span style={{marginRight: '10px'}}>
+                     Verify with </span> */}
+                     <UserVerify/>
+                      {/* <img src={worldcoinlogo} alt="worldcoinlogo"
                    style={{
                     width: '180px',
                     height: '100%',
                     borderRadius: '10px' 
                 }}
-                   />
+                   /> */}
                 </Typography>
 
             </Box>
+
         </Box>
     );
 }
