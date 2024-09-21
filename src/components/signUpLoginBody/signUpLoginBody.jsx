@@ -6,7 +6,7 @@ import dynamiclogo from "../../assets/dynamiclogo.jpg"
 import worldcoinlogo from "../../assets/worldcoinlogo.jpg"
 import UserVerify from '../../worldcoin/userverify';
 
-function App() {
+function Login() {
     return (
         <Box
             sx={{
@@ -100,4 +100,4 @@ function App() {
     );
 }
 
-export default App;
+export default Login;
