@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-const dummyPosts=[];
 // Initial state for the community slice
 const initialState = {
   page: "community",
