@@ -4,25 +4,14 @@ import Sidebar from '../navbars/sidebar';
 import PostCard from '../cards/postcard';
 import PollCard from '../cards/pollCard';
 import { useTheme } from '@mui/material/styles';
+import { useSelector } from 'react-redux'; 
 import image6 from '../../assets/pic6.png';
 
 function CommunityBody() {
   const theme = useTheme();
-  // const posts = [
-  //   { title: 'Post 1', description: 'This is the first post.' },
-  //   { title: 'Post 2', description: 'This is the second post.' },
-  //   { title: 'Post 1', description: 'This is the first post.' },
-  //   { title: 'Post 2', description: 'This is the second post.' },
-  //   { title: 'Post 1', description: 'This is the first post.' },
-  //   { title: 'Post 2', description: 'This is the second post.' }
-  // ];
-
-  // const polls = [
-  //   { question: 'Poll 1: What is your favorite color?' },
-  //   { question: 'Poll 2: Do you like cats or dogs?' },
-  //   { question: 'Poll 1: What is your favorite color?' },
-  //   { question: 'Poll 2: Do you like cats or dogs?' }
-  // ];
+  
+  // Accessing polls and posts from the community store
+  const { polls, posts } = useSelector((state) => state.community);
 
   return (
     <Box sx={{ 
@@ -32,7 +21,7 @@ function CommunityBody() {
         backgroundColor: theme.palette.background.primary,
         marginLeft:'40px',
         marginRight:'40px',
-         }}>
+    }}>
       {/* Left Sidebar */}
       <Box sx={{ width: '20%', borderRight: '4px solid #0A1B25', position: 'sticky', top: '64px' }}>
         <Sidebar />
@@ -47,23 +36,28 @@ function CommunityBody() {
           paddingRight: '40px',
           overflowY: 'auto' 
         }}>
+        {/* Render polls */}
         {polls.map((poll, index) => (
-          <PollCard key={index} 
-          creatorName = "Subhajit Biswas"
-          postDate ="4th October, 2023" 
-          animeName = "Naruto: Subhajit generations" 
-          season = {2} 
-          episode = {204} />
+          <PollCard 
+            key={index} 
+            creatorName={poll.creatorName || "Anonymous"} // Optional fields handling
+            postDate={poll.postDate || "Unknown Date"} 
+            animeName={poll.animeName} 
+            season={poll.season} 
+            episode={poll.episode} 
+          />
         ))}
+        
+        {/* Render posts */}
         {posts.map((post, index) => (
           <PostCard 
-          key={index}
-          creatorName="Subhajit Biswas" 
-          postDate="4th October, 2023" 
-          title="New Manga Announcement" 
-          description="We are excited to announce a new chapter of our manga series!" 
-          image={image6} 
-        />
+            key={index}
+            creatorName={post.creatorName || "Anonymous"} 
+            postDate={post.postDate || "Unknown Date"} 
+            title={post.title} 
+            description={post.description} 
+            image={post.image || image6} // Default image if no image provided
+          />
         ))}
       </Box>
     </Box>
