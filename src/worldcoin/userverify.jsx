@@ -30,8 +30,8 @@ export default function UserVerify() {
     return (
         <div>
             <IDKitWidget
-                app_id="app_staging_bc5a5eb38834b5595b79f3b6691d8c20" // obtained from the Developer Portal
-                action="verify-id" // obtained from the Developer Portal
+                app_id={process.env.REACT_APP_WORLDCOIN_APP_ID} // obtained from the Developer Portal
+                action={process.env.REACT_APP_WORLDCOIN_ACTION} // obtained from the Developer Portal
                 onSuccess={onSuccess} // callback when the modal is closed
                 handleVerify={handleVerify} // callback when the proof is received
                 verification_level={VerificationLevel.Orb}
