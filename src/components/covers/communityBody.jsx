@@ -8,21 +8,21 @@ import image6 from '../../assets/pic6.png';
 
 function CommunityBody() {
   const theme = useTheme();
-  const posts = [
-    { title: 'Post 1', description: 'This is the first post.' },
-    { title: 'Post 2', description: 'This is the second post.' },
-    { title: 'Post 1', description: 'This is the first post.' },
-    { title: 'Post 2', description: 'This is the second post.' },
-    { title: 'Post 1', description: 'This is the first post.' },
-    { title: 'Post 2', description: 'This is the second post.' }
-  ];
+  // const posts = [
+  //   { title: 'Post 1', description: 'This is the first post.' },
+  //   { title: 'Post 2', description: 'This is the second post.' },
+  //   { title: 'Post 1', description: 'This is the first post.' },
+  //   { title: 'Post 2', description: 'This is the second post.' },
+  //   { title: 'Post 1', description: 'This is the first post.' },
+  //   { title: 'Post 2', description: 'This is the second post.' }
+  // ];
 
-  const polls = [
-    { question: 'Poll 1: What is your favorite color?' },
-    { question: 'Poll 2: Do you like cats or dogs?' },
-    { question: 'Poll 1: What is your favorite color?' },
-    { question: 'Poll 2: Do you like cats or dogs?' }
-  ];
+  // const polls = [
+  //   { question: 'Poll 1: What is your favorite color?' },
+  //   { question: 'Poll 2: Do you like cats or dogs?' },
+  //   { question: 'Poll 1: What is your favorite color?' },
+  //   { question: 'Poll 2: Do you like cats or dogs?' }
+  // ];
 
   return (
     <Box sx={{ 
