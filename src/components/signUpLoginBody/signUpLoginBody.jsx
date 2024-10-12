@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Button, TextField, Typography, Link } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Logo from '../../assets/logo.svg';
 import SignUpLogin from '../../dynamic/singuplogin';
 import dynamiclogo from "../../assets/dynamiclogo.jpg"
-import worldcoinlogo from "../../assets/worldcoinlogo.jpg"
+// import worldcoinlogo from "../../assets/worldcoinlogo.jpg"
 import UserVerify from '../../worldcoin/userverify';
 
 function Login() {

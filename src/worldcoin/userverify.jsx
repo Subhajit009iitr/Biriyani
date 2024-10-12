@@ -1,4 +1,4 @@
-import { IDKitWidget, VerificationLevel, ISuccessResult, verifyCloudProof } from '@worldcoin/idkit'
+import { IDKitWidget, VerificationLevel} from '@worldcoin/idkit'
 import BackendClient from '../BackendClient';
 
 export default function UserVerify() {
