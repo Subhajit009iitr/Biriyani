@@ -12,7 +12,6 @@ const initialState = {
     //   Date: "",
     //   Theories: [],
     // }
-
   ],
   posts: [
     {
@@ -49,7 +48,7 @@ export const communitySlice = createSlice({
         episode: action.payload.episode,
         options: [],
         selectedOption: null,
-        staked: false, // Whether user has already staked tokens on this poll
+        staked: false,
       });
     },
     // Action to add a theory (poll option)
@@ -67,7 +66,7 @@ export const communitySlice = createSlice({
       if (poll && !poll.staked) {
         poll.selectedOption = optionIndex;
         poll.staked = true;
-        state.userTokenBalance -= 1; // Deduct 1 token for staking
+        state.userTokenBalance -= 1;
       }
     },
     // Action to add a new post
@@ -84,11 +83,18 @@ export const communitySlice = createSlice({
     // Action to update token balance
     updateTokenBalance: (state, action) => {
       state.userTokenBalance = action.payload.balance;
-    }
+    },
+
   },
 });
 
 // Exporting actions to be used in components
-export const { addPoll, addTheoryToPoll, stakeTokens, addPost, updateTokenBalance } = communitySlice.actions;
+export const { 
+  addPoll, 
+  addTheoryToPoll, 
+  stakeTokens, 
+  addPost, 
+  updateTokenBalance, 
+} = communitySlice.actions;
 
 export default communitySlice.reducer;

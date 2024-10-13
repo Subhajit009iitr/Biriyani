@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import Logo from '../../assets/logo.svg';
+import Logo from '../../assets/Initials.png';
 import SignUpLogin from '../../dynamic/singuplogin';
 import dynamiclogo from "../../assets/dynamiclogo.jpg"
 // import worldcoinlogo from "../../assets/worldcoinlogo.jpg"
-import UserVerify from '../../worldcoin/userverify';
+// import UserVerify from '../../worldcoin/userverify';
 
 function Login() {
     return (
@@ -27,7 +27,7 @@ function Login() {
                 color: 'rgba(256,256,256,1)',
                 marginBottom: '1rem'
             }}>
-                MangaVerse
+                OtakuChain
             </span>
             <Box
                 sx={{
@@ -62,7 +62,7 @@ function Login() {
 
 
                 </Typography>
-                <Typography
+                {/* <Typography
 
                     sx={{
                         color: '#808080', marginBottom: '1rem', fontWeight: 'bold',
@@ -72,7 +72,7 @@ function Login() {
                     }}
                 >
                     And
-                </Typography>
+                </Typography> */}
                 <Typography
 
                     sx={{
@@ -84,7 +84,7 @@ function Login() {
                 >
                   {/* <span style={{marginRight: '10px'}}>
                      Verify with </span> */}
-                     <UserVerify/>
+                     {/* <UserVerify/> */}
                       {/* <img src={worldcoinlogo} alt="worldcoinlogo"
                    style={{
                     width: '180px',

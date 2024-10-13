@@ -12,6 +12,8 @@ function CommunityBody() {
   
   // Accessing polls and posts from the community store
   const { polls, posts } = useSelector((state) => state.community);
+  const communityState = useSelector((state) => state.community);
+  console.log("Community",communityState);
 
   return (
     <Box sx={{ 
