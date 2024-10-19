@@ -9,8 +9,6 @@ import image6 from '../../assets/pic6.png';
 
 function CommunityBody() {
   const theme = useTheme();
-  
-  // Accessing polls and posts from the community store
   const { polls, posts } = useSelector((state) => state.community);
   const communityState = useSelector((state) => state.community);
   console.log("Community",communityState);
@@ -51,9 +49,9 @@ function CommunityBody() {
         ))}
         
         {/* Render posts */}
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <PostCard 
-            key={index}
+            key={post.id}
             creatorName={post.creatorName || "Anonymous"} 
             postDate={post.postDate || "Unknown Date"} 
             title={post.title} 

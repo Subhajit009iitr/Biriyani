@@ -10,10 +10,17 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useDispatch, useSelector } from 'react-redux'; 
+import { addPost } from '../../slices/communitySlice'; 
+import dmn from '../../assets/animePics/dmn.png'
 
 const CreatePost = ({ onClose }) => {
   const [caption, setCaption] = useState('');
+  const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const nextId = useSelector((state) => state.community.nextId); // Get the next ID from Redux
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -21,9 +28,24 @@ const CreatePost = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic
-    console.log('File:', file);
-    console.log('Caption:', caption);
+
+    // Create post object
+    const newPost = {
+      id: nextId,
+      creatorName: 'Subhajit Biswas',
+      postDate: '20th October, 2024',
+      title,
+      description: caption,
+      image: dmn,
+    };
+
+    // Dispatch action to add the post
+    dispatch(addPost(newPost));
+
+    setCaption('');
+    setTitle('');
+    setFile(null);
+
     onClose(); // Close dialog after submission
   };
 
@@ -38,35 +60,30 @@ const CreatePost = ({ onClose }) => {
         </IconButton>
       </Box>
       <Box component="form" onSubmit={handleSubmit} sx={styles.form}>
-        <Typography variant="h6" sx={styles.subTitle}>
-          Details
-        </Typography>
+        <TextField
+          label="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          sx={styles.input}
+          InputLabelProps={{ shrink: true }}
+        />
         <FormControl fullWidth sx={styles.input}>
           <InputLabel shrink sx={styles.label}>
-            Upload Images
+            Upload Image
           </InputLabel>
           <Box sx={styles.uploadBox}>
-            <Button
-              component="label"
-              variant="outlined"
-              sx={styles.uploadButton}
-            >
+            <Button component="label" variant="outlined" sx={styles.uploadButton}>
               {file ? file.name : 'Upload file'}
               <CloudUploadIcon sx={styles.uploadIcon} />
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+              <input type="file" hidden accept="image/*" onChange={handleFileChange} />
             </Button>
           </Box>
         </FormControl>
         <TextField
-          label="Captions"
+          label="Caption"
           multiline
-          rows={4}
-          placeholder="Enter the captions here"
+          rows={2}
+          placeholder="Enter the caption here"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
           sx={styles.input}

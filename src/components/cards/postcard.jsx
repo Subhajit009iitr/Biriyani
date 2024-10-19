@@ -42,7 +42,7 @@ function PostCard({ creatorName, postDate, title, description, image }) {
 
         <Typography 
           variant="body2" 
-          sx={{ fontSize: '0.875rem', textAlign: 'left', marginBottom: '20px' }}
+          sx={{ fontSize: '1.5rem', textAlign: 'left', marginBottom: '20px' }}
         >
           {description}
         </Typography>
