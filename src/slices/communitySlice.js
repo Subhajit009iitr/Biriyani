@@ -9,9 +9,9 @@ const initialState = {
   polls: [
     {
       id: 3,
-      user: "Subhajit Biswas",
+      creatorName: "Subhajit Biswas",
       animeName: "Naruto",
-      Date: "",
+      postDate: "20th October, 2024",
       Theories: [],
     }
   ],
@@ -43,15 +43,8 @@ export const communitySlice = createSlice({
   reducers: {
     // Action to add a new poll
     addPoll: (state, action) => {
-      state.polls.push({
-        id: action.payload.id,
-        animeName: action.payload.animeName,
-        season: action.payload.season,
-        episode: action.payload.episode,
-        options: [],
-        selectedOption: null,
-        staked: false,
-      });
+      state.polls.push(action.payload);
+      state.nextID += 1; // Increment nextID
     },
     // Action to add a theory (poll option)
     addTheoryToPoll: (state, action) => {
@@ -80,7 +73,6 @@ export const communitySlice = createSlice({
     updateTokenBalance: (state, action) => {
       state.userTokenBalance = action.payload.balance;
     },
-
   },
 });
 

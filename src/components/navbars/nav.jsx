@@ -49,6 +49,7 @@ function ResponsiveAppBar({ isSignedIn }) {
 
     // Invisible button handler
     const handleInvisibleClick = () => {
+        console.log("ADMIN");
         setIsAdmin(true); // Set isAdmin to true when the invisible button is clicked
     };
 
