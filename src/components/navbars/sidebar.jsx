@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import { Box, List, ListItem, ListItemText, Button, Dialog } from '@mui/material';
+import CreatePost from '../create/createpost'; // Adjust import path if needed
+import PollForm from '../create/createpoll'; // Adjust import path if needed
 
-function Sidebar() {
+const Sidebar = () => {
   const theme = useTheme();
-
-  const tabs = ['Home', 'Polls', 'Posts'];
-
   const [activeTab, setActiveTab] = useState('Home');
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State for CreatePost dialog
+  const [isPollOpen, setIsPollOpen] = useState(false); // State for PollForm dialog
+  const [showPollButton, setShowPollButton] = useState(false); // Control Poll button visibility
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const handleTabClick = (tab) => setActiveTab(tab);
+  const handleCreateClick = () => setIsDialogOpen(true);
+  const handleClosePost = () => setIsDialogOpen(false);
 
-  // Handle the "Create" button click
-  const handleCreateClick = () => {
-    alert('Create button clicked');
-  };
+  const handlePollClick = () => setIsPollOpen(true);
+  const handleClosePoll = () => setIsPollOpen(false);
+
+  const togglePollButton = () => setShowPollButton((prev) => !prev); // Toggle visibility
 
   return (
     <Box sx={{ width: '18vw', padding: '10px' }}>
       <List>
-        {tabs.map((tab, index) => (
+        {['Home', 'Polls', 'Posts'].map((tab, index) => (
           <ListItem
             button
             key={index}
@@ -34,29 +32,63 @@ function Sidebar() {
               backgroundColor: activeTab === tab ? theme.palette.background.light : 'transparent',
               color: activeTab === tab ? theme.palette.background.lightest : 'inherit',
               '&:hover': {
-                backgroundColor: activeTab !== tab ? theme.palette.action.hover : theme.palette.background.dark,
+                backgroundColor: activeTab !== tab
+                  ? theme.palette.action.hover
+                  : theme.palette.background.dark,
               },
               borderRadius: '4px',
-              marginBottom: '8px'
+              marginBottom: '8px',
             }}
           >
             <ListItemText primary={tab} />
           </ListItem>
         ))}
 
-        {/* "Create" button - no active state */}
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleCreateClick}
+        <Button 
+          variant="contained" 
+          color="primary" 
+          fullWidth 
+          onClick={handleCreateClick} 
           sx={{ marginTop: '20px' }}
         >
           Post something!
         </Button>
+
+        {/* Invisible Button to Toggle Poll Button Visibility */}
+        <Button
+          variant="text"
+          fullWidth
+          onClick={togglePollButton}
+          sx={{ marginTop: '10px', opacity: 0 }}
+        >
+          Invisible Button
+        </Button>
+
+        {/* Poll Button, initially hidden */}
+        {showPollButton && (
+          <Button 
+            variant="outlined" 
+            color="secondary" 
+            fullWidth 
+            onClick={handlePollClick} 
+            sx={{ marginTop: '10px' }}
+          >
+            Create a Poll
+          </Button>
+        )}
       </List>
+
+      {/* CreatePost Dialog */}
+      <Dialog open={isDialogOpen} onClose={handleClosePost}>
+        <CreatePost onClose={handleClosePost} />
+      </Dialog>
+
+      {/* PollForm Dialog */}
+      <Dialog open={isPollOpen} onClose={handleClosePoll} maxWidth="md" fullWidth>
+        <PollForm onClose={handleClosePoll} />
+      </Dialog>
     </Box>
   );
-}
+};
 
 export default Sidebar;

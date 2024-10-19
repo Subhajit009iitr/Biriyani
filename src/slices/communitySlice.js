@@ -1,35 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
+import aot from '../assets/animePics/aot.jpeg'
+import shin from '../assets/animePics/shin.jpeg'
 
 // Initial state for the community slice
 const initialState = {
   page: "community",
-  nextId: 3,
+  nextId: 4,
   polls: [
-    // {
-    //   id: 3,
-    //   user: "Subhajit Biswas",
-    //   animeName: "Naruto",
-    //   Date: "",
-    //   Theories: [],
-    // }
-
+    {
+      id: 3,
+      creatorName: "Subhajit Biswas",
+      animeName: "Naruto",
+      postDate: "20th October, 2024",
+      Theories: [],
+    }
   ],
   posts: [
     {
       id: 1,
-      user: "Subhajit Biswas",
+      creatorName: "Subhajit Biswas",
       postDate: "4th October, 2023",
-      title: "Post Title 1",
-      description: "This is a description of post 1.",
-      image: null,
+      title: "Attack on Titan Last Season",
+      description: "Time to watch the last season of AOT. Shinzou wo Sasageyo!!!",
+      image: aot,
     },
     {
       id: 2,
-      user: "John Doe",
+      creatorName: "John Doe",
       postDate: "5th October, 2023",
-      title: "Post Title 2",
-      description: "This is a description of post 2.",
-      image: null,
+      title: "Shinchan's Funny",
+      description: "Was binge watching Shinchan. Can't stop laughing my guts out ;)",
+      image: shin,
     },
   ],
   userTokenBalance: 100,
@@ -42,15 +43,8 @@ export const communitySlice = createSlice({
   reducers: {
     // Action to add a new poll
     addPoll: (state, action) => {
-      state.polls.push({
-        id: action.payload.id,
-        animeName: action.payload.animeName,
-        season: action.payload.season,
-        episode: action.payload.episode,
-        options: [],
-        selectedOption: null,
-        staked: false, // Whether user has already staked tokens on this poll
-      });
+      state.polls.push(action.payload);
+      state.nextID += 1; // Increment nextID
     },
     // Action to add a theory (poll option)
     addTheoryToPoll: (state, action) => {
@@ -67,28 +61,28 @@ export const communitySlice = createSlice({
       if (poll && !poll.staked) {
         poll.selectedOption = optionIndex;
         poll.staked = true;
-        state.userTokenBalance -= 1; // Deduct 1 token for staking
+        state.userTokenBalance -= 1;
       }
     },
     // Action to add a new post
     addPost: (state, action) => {
-      state.posts.push({
-        id: state.posts.length + 1,
-        creatorName: action.payload.creatorName,
-        postDate: action.payload.postDate,
-        title: action.payload.title,
-        description: action.payload.description,
-        image: action.payload.image || null,
-      });
+      state.posts.push(action.payload); // Add the new post to the posts array
+      state.nextId += 1; // Increment the next ID
     },
     // Action to update token balance
     updateTokenBalance: (state, action) => {
       state.userTokenBalance = action.payload.balance;
-    }
+    },
   },
 });
 
 // Exporting actions to be used in components
-export const { addPoll, addTheoryToPoll, stakeTokens, addPost, updateTokenBalance } = communitySlice.actions;
+export const { 
+  addPoll, 
+  addTheoryToPoll, 
+  stakeTokens, 
+  addPost, 
+  updateTokenBalance, 
+} = communitySlice.actions;
 
 export default communitySlice.reducer;
