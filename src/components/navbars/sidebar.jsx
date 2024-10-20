@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Box, List, ListItem, ListItemText, Button, Dialog } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
 import CreatePost from '../create/createpost'; // Adjust import path if needed
 import PollForm from '../create/createpoll'; // Adjust import path if needed
 
 const Sidebar = () => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState('Home');
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State for CreatePost dialog
-  const [isPollOpen, setIsPollOpen] = useState(false); // State for PollForm dialog
-  const [showPollButton, setShowPollButton] = useState(false); // Control Poll button visibility
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // CreatePost dialog state
+  const [isPollOpen, setIsPollOpen] = useState(false); // PollForm dialog state
+  const [showPollButton, setShowPollButton] = useState(false); // Poll button visibility
+  const [showResult, setShowResult] = useState(false); // Result dialog visibility
 
   const handleTabClick = (tab) => setActiveTab(tab);
   const handleCreateClick = () => setIsDialogOpen(true);
@@ -18,7 +19,8 @@ const Sidebar = () => {
   const handlePollClick = () => setIsPollOpen(true);
   const handleClosePoll = () => setIsPollOpen(false);
 
-  const togglePollButton = () => setShowPollButton((prev) => !prev); // Toggle visibility
+  const togglePollButton = () => setShowPollButton((prev) => !prev); // Toggle Poll button visibility
+  const toggleResult = () => setShowResult((prev) => !prev); // Toggle Result dialog visibility
 
   return (
     <Box sx={{ width: '18vw', padding: '10px' }}>
@@ -76,6 +78,16 @@ const Sidebar = () => {
             Create a Poll
           </Button>
         )}
+
+        {/* Invisible Button to Show Result Dialog */}
+        <Button
+          variant="text"
+          fullWidth
+          onClick={toggleResult}
+          sx={{ marginTop: '10px', opacity: 0 }}
+        >
+          Invisible Button
+        </Button>
       </List>
 
       {/* CreatePost Dialog */}
@@ -86,6 +98,14 @@ const Sidebar = () => {
       {/* PollForm Dialog */}
       <Dialog open={isPollOpen} onClose={handleClosePoll} maxWidth="md" fullWidth>
         <PollForm onClose={handleClosePoll} />
+      </Dialog>
+
+      {/* Result Dialog */}
+      <Dialog open={showResult} onClose={toggleResult}>
+        <DialogTitle>You Won!</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">Itachi killed the Uchiha Clan</Typography>
+        </DialogContent>
       </Dialog>
     </Box>
   );

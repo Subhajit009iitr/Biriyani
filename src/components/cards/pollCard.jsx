@@ -138,7 +138,7 @@ function PollCard({ creatorName, postDate, animeName, season, episode, userToken
           }}
         >
           <DialogTitle>
-            Stake 1 Token
+            Stake 0.0001 ETH
             {/* Token balance displayed on top right */}
             <Typography
               variant="body2"
@@ -150,7 +150,7 @@ function PollCard({ creatorName, postDate, animeName, season, episode, userToken
           </DialogTitle>
           <DialogContent>
             <Typography>
-              You are about to stake 1 token on the selected option.
+              You are about to stake 0.0001 token on the selected option.
             </Typography>
           </DialogContent>
           <DialogActions>
@@ -161,7 +161,7 @@ function PollCard({ creatorName, postDate, animeName, season, episode, userToken
               onClick={handleStakeTokens}
               color="primary"
             >
-              Stake 1 Token
+              Stake 0.0001 Token
             </Button>
           </DialogActions>
         </Dialog>
@@ -186,7 +186,7 @@ function PollCard({ creatorName, postDate, animeName, season, episode, userToken
               color="textSecondary"
               sx={{ position: 'absolute', top: 10, right: 20 }}
             >
-              Token Balance: {userTokens}
+              Balance: {userTokens} ETH
             </Typography>
           </DialogTitle>
           <DialogContent>
@@ -210,7 +210,7 @@ function PollCard({ creatorName, postDate, animeName, season, episode, userToken
               color="primary"
               startIcon={<AddIcon />}
             >
-              Stake 10 tokens
+              Stake 0.001 ETH
             </Button>
           </DialogActions>
         </Dialog>
