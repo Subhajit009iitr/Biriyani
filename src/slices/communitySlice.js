@@ -5,15 +5,15 @@ import shin from '../assets/animePics/shin.jpeg'
 // Initial state for the community slice
 const initialState = {
   page: "community",
-  nextId: 4,
+  nextId: 3,
   polls: [
-    {
-      id: 3,
-      creatorName: "Subhajit Biswas",
-      animeName: "Naruto",
-      postDate: "20th October, 2024",
-      Theories: [],
-    }
+    // {
+    //   id: 3,
+    //   creatorName: "Subhajit Biswas",
+    //   animeName: "Naruto",
+    //   postDate: "20th October, 2024",
+    //   Theories: [],
+    // }
   ],
   posts: [
     {
@@ -33,7 +33,7 @@ const initialState = {
       image: shin,
     },
   ],
-  userTokenBalance: 100,
+  userTokenBalance: 1,
 };
 
 // Community slice

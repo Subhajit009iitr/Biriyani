@@ -12,7 +12,7 @@ const PollForm = ({ onClose }) => {
   const [episodeNumber, setEpisodeNumber] = useState('');
   const [publishDate, setPublishDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [tokenAmount, setTokenAmount] = useState('1 token');
+  const [theory, setTheory] = useState('');
 
 //   const [theoryInput, setTheoryInput] = useState('');
 //   const [theories, setTheories] = useState([]);
@@ -99,9 +99,10 @@ const PollForm = ({ onClose }) => {
         </Box>
 
         <TextField
-          label="Token Amount for Single Choice"
-          value={tokenAmount}
-          onChange={(e) => setTokenAmount(e.target.value)}
+          label="Actual Theory"
+          variant="outlined"
+          value={theory}
+          onChange={(e) => setTheory(e.target.value)}
           sx={styles.input}
         />
 
